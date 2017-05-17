@@ -8,39 +8,47 @@ import java.util.List;
  */
 public class KthLastElement {
 
-    private Integer value;
-    public KthLastElement next;
+    private Node list;
 
-    public KthLastElement(Integer value) {
-        this.value = value;
+    public KthLastElement(Node list) {
+        this.list = list;
     }
 
-    @Override
-    public String toString() {
-        return "KthLastElement{" +
-                "value=" + value +
-                '}';
-    }
+    public Node findKth(Integer k) {
+        Node current = list;
+        Node before = list;
 
-    public KthLastElement findKth(Integer k, KthLastElement head) {
-        KthLastElement current = head, before = head;
-
-        if (k < 1 || current == null) {
+        if (k < 0 || current == null) {
             return current;
         }
 
-        for (int i = 0; i < k - 1; i++) {
-            current = current.next;
+        for (int i = 0; i < k; i++) {
+            current = current.getNext();
             if (current == null) {
                 return current;
             }
         }
 
-        while (current.next != null) {
-            before = before.next;
-            current = current.next;
+        while (current.getNext() != null) {
+            before = before.getNext();
+            current = current.getNext();
         }
 
         return before;
+    }
+
+    public Node getList() {
+        return list;
+    }
+
+    public void setList(Node list) {
+        this.list = list;
+    }
+
+    @Override
+    public String toString() {
+        return "KthLastElement{ " +
+                "list = " + list.showList() +
+                '}';
     }
 }
