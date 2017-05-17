@@ -3,15 +3,13 @@ package com.katermar;
 public class Main {
 
     public static void main(String[] args) {
-        KthLastElement n = new KthLastElement(1);
-        n.next = new KthLastElement(2);
-        n.next.next = new KthLastElement(8);
-        n.next.next.next = new KthLastElement(3);
-        n.next.next.next.next = new KthLastElement(7);
-        n.next.next.next.next.next = new KthLastElement(8);
-        n.next.next.next.next.next.next = new KthLastElement(4);
+        int[] array = {1, 3, 5, 7, 9};
+        Node list = new Node(12);
+        list.fill(array);
 
-        System.out.println(n.findKth(2, n));
+        KthLastElement kthLastElement = new KthLastElement(list);
+        System.out.println(kthLastElement);
+        System.out.println(kthLastElement.findKth(0));
 
         CompareStringPermutation s = new CompareStringPermutation();
         System.out.println(s.compare("Listen", "Silent"));
