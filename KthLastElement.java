@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by USER on 5/15/2017.
+ * Created by katermar on 5/15/2017.
  */
 public class KthLastElement {
 

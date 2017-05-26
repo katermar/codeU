@@ -1,7 +1,7 @@
 package com.katermar;
 
 /**
- * Created by USER on 5/17/2017.
+ * Created by katermar on 5/17/2017.
  */
 public class Node {
 
