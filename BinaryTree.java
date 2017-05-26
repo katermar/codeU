@@ -1,7 +1,7 @@
 package com.katermar;
 
 /**
- * Created by USER on 5/23/2017.
+ * Created by katermar on 5/23/2017.
  */
 public class BinaryTree {
     TreeNode root;
@@ -11,11 +11,11 @@ public class BinaryTree {
     * @field left, right store left and right subtrees*/
     public static class TreeNode {
         private int value;
-        private TreeNode left, right, nextRight;
+        private TreeNode left, right;
 
         TreeNode(int item) {
             value = item;
-            left = right = nextRight = null;
+            left = right = null;
         }
 
         public int getValue() {
@@ -37,9 +37,6 @@ public class BinaryTree {
             return right;
         }
 
-        public TreeNode getNextRight() {
-            return nextRight;
-        }
     }
 
     /* Function to print all ancestors of purposed value
@@ -114,7 +111,7 @@ public class BinaryTree {
     * @param a - first node value
     * @param b - second node value
     * @return lowest common ancestor if both nodes are present
-    * int the tree, if one is not present - returns existing node, as LCA
+    * in the tree, if one is not present - returns existing node, as LCA
     * if both don't exist - returns null
     * if a key is ancestor of other, then the ancestor key becomes LCA*/
     public TreeNode findLowestCommonAncestor(TreeNode root, int a, int b) {
