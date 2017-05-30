@@ -1,4 +1,7 @@
-package com.katermar;
+package com.katermar.assignment2;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by katermar on 5/23/2017.
@@ -10,7 +13,7 @@ public class BinaryTree {
     * @field value stores integer value
     * @field left, right store left and right subtrees*/
     public static class TreeNode {
-        private int value;
+        private final int value;
         private TreeNode left, right;
 
         TreeNode(int item) {
@@ -28,9 +31,7 @@ public class BinaryTree {
 
         @Override
         public String toString() {
-            return "TreeNode{" +
-                    "value=" + value +
-                    '}';
+            return String.format("TreeNode = %d", this.value);
         }
 
         public TreeNode getRight() {
@@ -43,21 +44,22 @@ public class BinaryTree {
     * @param node - root node
     * @param value - value of the node on which we want to print ancestors
     * @return true, if value exists in this tree, otherwise - false*/
-    boolean printAllAncestors(TreeNode node, int value)
+    boolean findAllAncestors(List<TreeNode> list, TreeNode node, int value)
     {
          //if tree is empty returns false
-        if (node == null)
+        if (node == null) {
             return false;
+        }
 
         //if value exist in a tree
-        if (node.getValue() == value)
+        if (node.getValue() == value) {
             return true;
+        }
 
         //if value is present in left/right subtree
         // then we'll print it
-        if (printAllAncestors(node.left, value) || printAllAncestors(node.right, value))
-        {
-            System.out.print(node.value + " ");
+        if (findAllAncestors(list, node.left, value) || findAllAncestors(list, node.right, value)) {
+            list.add(node);
             return true;
         }
 
@@ -115,12 +117,16 @@ public class BinaryTree {
     * if both don't exist - returns null
     * if a key is ancestor of other, then the ancestor key becomes LCA*/
     public TreeNode findLowestCommonAncestor(TreeNode root, int a, int b) {
+
         // Base case
-        if (root == null) return null;
+        if (root == null) {
+            return null;
+        }
 
         //if one of values is root - root is LCA
-        if (root.value == a || root.value == b)
+        if (root.value == a || root.value == b) {
             return root;
+        }
 
         // Look for keys in left and right subtrees
         TreeNode rightLCA = findLowestCommonAncestor(root.right, a, b);
@@ -129,10 +135,17 @@ public class BinaryTree {
         // If both of the above calls return Non-NULL, then one key
         // is present in once subtree and other is present in other,
         // So this node is the LCA
-        if (rightLCA != null && leftLCA != null)  return root;
+        if (rightLCA != null && leftLCA != null)  {
+            return root;
+        }
 
-        if (leftLCA != null) return leftLCA;
-        if (rightLCA != null) return rightLCA;
+        if (leftLCA != null) {
+            return leftLCA;
+        }
+
+        if (rightLCA != null) {
+            return rightLCA;
+        }
 
         return null;
     }
@@ -153,13 +166,33 @@ public class BinaryTree {
         */
         int[] array = {2, 1, 4, 3, 5, 7};
         tree.populateTree(array);
-        tree.preorderTraversal(tree.root);
         System.out.println();
 
-        if (!tree.printAllAncestors(tree.root, 4))
+        List<TreeNode> ancestorList = new LinkedList<>();
+        if (!tree.findAllAncestors(ancestorList, tree.root, 7)) {
             System.out.println("Element doesn't exist");
+        } else {
+            System.out.println("Ancestors - " + ancestorList);
+        }
 
         System.out.println();
-        System.out.println(tree.findLowestCommonAncestor(tree.root, 4, 10));
+        System.out.print(tree.findLCAtest(7, 3));
+    }
+
+    public String findLCAtest(int a, int b) {
+
+        TreeNode LCA = this.findLowestCommonAncestor(this.root, a, b);
+        if (LCA == null) {
+            return "Tree or both of nodes don't exist";
+        }
+        if (LCA.getValue() == a || LCA.getValue() == b) {
+            return LCA + " - One of the nodes is LCA";
+        }
+        if (LCA.getValue() == this.root.getValue()) {
+            return LCA + " - LCA is a root";
+        }
+        else {
+            return LCA + " - is LCA";
+        }
     }
 }
