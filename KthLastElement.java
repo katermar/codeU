@@ -1,7 +1,4 @@
-package com.katermar;
-
-import java.util.LinkedList;
-import java.util.List;
+package com.katermar.assignment1;
 
 /**
  * Created by katermar on 5/15/2017.

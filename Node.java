@@ -1,4 +1,4 @@
-package com.katermar;
+package com.katermar.assignment1;
 
 /**
  * Created by katermar on 5/17/2017.

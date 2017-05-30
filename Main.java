@@ -1,4 +1,4 @@
-package com.katermar;
+package com.katermar.assignment1;
 
 public class Main {
 
