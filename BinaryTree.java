@@ -14,11 +14,11 @@ public class BinaryTree {
     * @field left, right store left and right subtrees*/
     public static class TreeNode {
         private final int value;
-        private TreeNode left, right;
+        private TreeNode left;
+        private TreeNode right;
 
         TreeNode(int item) {
             value = item;
-            left = right = null;
         }
 
         public int getValue() {
@@ -150,49 +150,49 @@ public class BinaryTree {
         return null;
     }
 
-    /* Driver program to test above functions */
-    public static void main(String args[])
-    {
-        BinaryTree tree = new BinaryTree();
-
-        /* Construct the following binary tree
-                  2
-                /   \
-               1     4
-                    /  \
-                   3    5
-                         \
-                          7
-        */
-        int[] array = {2, 1, 4, 3, 5, 7};
-        tree.populateTree(array);
-        System.out.println();
-
-        List<TreeNode> ancestorList = new LinkedList<>();
-        if (!tree.findAllAncestors(ancestorList, tree.root, 7)) {
-            System.out.println("Element doesn't exist");
-        } else {
-            System.out.println("Ancestors - " + ancestorList);
-        }
-
-        System.out.println();
-        System.out.print(tree.findLCAtest(7, 3));
-    }
-
-    public String findLCAtest(int a, int b) {
-
-        TreeNode LCA = this.findLowestCommonAncestor(this.root, a, b);
-        if (LCA == null) {
-            return "Tree or both of nodes don't exist";
-        }
-        if (LCA.getValue() == a || LCA.getValue() == b) {
-            return LCA + " - One of the nodes is LCA";
-        }
-        if (LCA.getValue() == this.root.getValue()) {
-            return LCA + " - LCA is a root";
-        }
-        else {
-            return LCA + " - is LCA";
-        }
-    }
+//    /* Driver program to test above functions */
+//    public static void main(String args[])
+//    {
+//        BinaryTree tree = new BinaryTree();
+//
+//        /* Construct the following binary tree
+//                  2
+//                /   \
+//               1     4
+//                    /  \
+//                   3    5
+//                         \
+//                          7
+//        */
+//        int[] array = {2, 1, 4, 3, 5, 7};
+//        tree.populateTree(array);
+//        System.out.println();
+//
+//        List<TreeNode> ancestorList = new LinkedList<>();
+//        if (!tree.findAllAncestors(ancestorList, tree.root, 7)) {
+//            System.out.println("Element doesn't exist");
+//        } else {
+//            System.out.println("Ancestors - " + ancestorList);
+//        }
+//
+//        System.out.println();
+//        System.out.print(tree.findLCAtest(7, 3));
+//    }
+//
+//    public String findLCAtest(int a, int b) {
+//
+//        TreeNode LCA = this.findLowestCommonAncestor(this.root, a, b);
+//        if (LCA == null) {
+//            return "Tree or both of nodes don't exist";
+//        }
+//        if (LCA.getValue() == a || LCA.getValue() == b) {
+//            return LCA + " - One of the nodes is LCA";
+//        }
+//        if (LCA.getValue() == this.root.getValue()) {
+//            return LCA + " - LCA is a root";
+//        }
+//        else {
+//            return LCA + " - is LCA";
+//        }
+//    }
 }
