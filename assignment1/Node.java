@@ -49,6 +49,10 @@ public class Node {
         this.value = value;
     }
 
+    /*
+    method to fill list with an array
+    @param array - array to fill current list
+     */
     public void fill(int[] array) {
         Node current = this;
         for (int i = 0; i < array.length; i++) {

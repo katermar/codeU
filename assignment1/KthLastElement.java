@@ -11,7 +11,13 @@ public class KthLastElement {
         this.list = list;
     }
 
-    public Node findKth(Integer k) {
+    /*
+    method to find k-th last element in the linked list
+    @param k - which element to find
+    @return found node of the linked list, if it exists
+            or null if not
+     */
+    public Node findKth(int k) {
         Node current = list;
         Node before = list;
 
