@@ -8,8 +8,7 @@ import java.util.List;
  */
 public class BinaryTreeTest {
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         BinaryTree tree = new BinaryTree();
 
         /* Construct the following binary tree
@@ -25,12 +24,12 @@ public class BinaryTreeTest {
         tree.populateTree(array);
         System.out.println();
 
-        List<BinaryTree.TreeNode> ancestorList = new LinkedList<>();
-        if (!tree.findAllAncestors(ancestorList, tree.root, 7)) {
-            System.out.println("Element doesn't exist");
-        } else {
-            System.out.println("Ancestors - " + ancestorList);
-        }
+        List<BinaryTree.TreeNode> expectedAncestorList = new LinkedList<>();
+        expectedAncestorList.add(new BinaryTree.TreeNode(5));
+        expectedAncestorList.add(new BinaryTree.TreeNode(4));
+        expectedAncestorList.add(new BinaryTree.TreeNode(2));
+
+        findAllAncestorsTest(expectedAncestorList, tree, 7);
 
         System.out.println();
         checkLCA(4, tree, 7, 3);
@@ -40,7 +39,7 @@ public class BinaryTreeTest {
 
     public static String findLCAtest(BinaryTree tree, int a, int b) {
 
-        BinaryTree.TreeNode LCA = tree.findLowestCommonAncestor(tree.root, a, b);
+        BinaryTree.TreeNode LCA = tree.findLowestCommonAncestor(a, b);
         if (LCA == null) {
             return "Tree or both of nodes don't exist";
         }
@@ -49,16 +48,30 @@ public class BinaryTreeTest {
         }
         if (LCA.getValue() == tree.root.getValue()) {
             return LCA + " - LCA is a root";
-        }
-        else {
+        } else {
             return LCA + " - is LCA";
         }
     }
 
-    public static void checkLCA(int expectedResult, BinaryTree tree, int a, int b) {
+    private static void checkLCA(int expectedResult, BinaryTree tree, int a, int b) {
 
         System.out.print(findLCAtest(tree, a, b));
-        if (tree.findLowestCommonAncestor(tree.root, a, b).getValue() == expectedResult) {
+        if (tree.findLowestCommonAncestor(a, b).getValue() == expectedResult) {
+            System.out.println(" <----- Grats! Test PASSED");
+        } else {
+            System.out.println(" <----- ERROR! Test FAILED");
+        }
+    }
+
+    public static void findAllAncestorsTest(List<BinaryTree.TreeNode> expectedList, BinaryTree tree, int value) {
+        List<BinaryTree.TreeNode> ancestorList = new LinkedList<>();
+        if (!tree.findAllAncestors(ancestorList, tree.root, value)) {
+            System.out.print("Element doesn't exist");
+        } else {
+            System.out.print("Ancestors - " + ancestorList);
+        }
+
+        if (ancestorList.equals(expectedList)) {
             System.out.println(" <----- Grats! Test PASSED");
         } else {
             System.out.println(" <----- ERROR! Test FAILED");

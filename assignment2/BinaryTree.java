@@ -30,6 +30,16 @@ public class BinaryTree {
         }
 
         @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TreeNode treeNode = (TreeNode) o;
+
+            return value == treeNode.value;
+        }
+
+        @Override
         public String toString() {
             return String.format("TreeNode = %d", this.value);
         }
@@ -38,15 +48,24 @@ public class BinaryTree {
             return right;
         }
 
+
+        /*Traverse tree in preorder*/
+        public void preorderTraversal() { //метод для обхода в ширину
+            if (this != null) {
+                System.out.print(this.getValue() + " ");
+                this.left.preorderTraversal();
+                this.right.preorderTraversal();
+            }
+        }
+
     }
 
     /* Function to print all ancestors of purposed value
     * @param node - root node
     * @param value - value of the node on which we want to print ancestors
     * @return true, if value exists in this tree, otherwise - false*/
-    boolean findAllAncestors(List<TreeNode> list, TreeNode node, int value)
-    {
-         //if tree is empty returns false
+    boolean findAllAncestors(List<TreeNode> list, TreeNode node, int value) {
+        //if tree is empty returns false
         if (node == null) {
             return false;
         }
@@ -67,24 +86,13 @@ public class BinaryTree {
         return false;
     }
 
-    /*Traverse tree in preorder
-    * @param root - tree root*/
-    public void preorderTraversal (TreeNode root){ //метод для обхода в ширину
-        if (root != null){
-            System.out.print(root.getValue() + " ");
-            preorderTraversal (root.left);
-            preorderTraversal (root.right);
-        }
-    }
 
     /*Populates tree with the array in order
     * @param array - array which will fill the tree*/
-    public boolean populateTree(int[] array) {
+    public void populateTree(int[] array) {
         for (int i = 0; i < array.length; i++) {
             this.insert(array[i]);
         }
-
-        return true;
     }
 
     /*@param value - value to insert*/
@@ -108,6 +116,17 @@ public class BinaryTree {
         return node;
     }
 
+    /*
+    * @param a - first node value
+    * @param b - second node value
+    * @return lowest common ancestor if both nodes are present
+    * in the tree, if one is not present - returns existing node, as LCA
+    * if both don't exist - returns null
+    * if a key is ancestor of other, then the ancestor key becomes LCA*/
+    public TreeNode findLowestCommonAncestor(int a, int b) {
+        return findLowestCommonAncestorHelper(root, a, b);
+    }
+
     /*Finds lowest common ancestor of two nodes
     * @param root
     * @param a - first node value
@@ -116,7 +135,7 @@ public class BinaryTree {
     * in the tree, if one is not present - returns existing node, as LCA
     * if both don't exist - returns null
     * if a key is ancestor of other, then the ancestor key becomes LCA*/
-    public TreeNode findLowestCommonAncestor(TreeNode root, int a, int b) {
+    public TreeNode findLowestCommonAncestorHelper(TreeNode root, int a, int b) {
 
         // Base case
         if (root == null) {
@@ -129,13 +148,13 @@ public class BinaryTree {
         }
 
         // Look for keys in left and right subtrees
-        TreeNode rightLCA = findLowestCommonAncestor(root.right, a, b);
-        TreeNode leftLCA  = findLowestCommonAncestor(root.left, a, b);
+        TreeNode rightLCA = findLowestCommonAncestorHelper(root.right, a, b);
+        TreeNode leftLCA = findLowestCommonAncestorHelper(root.left, a, b);
 
         // If both of the above calls return Non-NULL, then one key
         // is present in once subtree and other is present in other,
         // So this node is the LCA
-        if (rightLCA != null && leftLCA != null)  {
+        if (rightLCA != null && leftLCA != null) {
             return root;
         }
 
@@ -149,50 +168,4 @@ public class BinaryTree {
 
         return null;
     }
-
-//    /* Driver program to test above functions */
-//    public static void main(String args[])
-//    {
-//        BinaryTree tree = new BinaryTree();
-//
-//        /* Construct the following binary tree
-//                  2
-//                /   \
-//               1     4
-//                    /  \
-//                   3    5
-//                         \
-//                          7
-//        */
-//        int[] array = {2, 1, 4, 3, 5, 7};
-//        tree.populateTree(array);
-//        System.out.println();
-//
-//        List<TreeNode> ancestorList = new LinkedList<>();
-//        if (!tree.findAllAncestors(ancestorList, tree.root, 7)) {
-//            System.out.println("Element doesn't exist");
-//        } else {
-//            System.out.println("Ancestors - " + ancestorList);
-//        }
-//
-//        System.out.println();
-//        System.out.print(tree.findLCAtest(7, 3));
-//    }
-//
-//    public String findLCAtest(int a, int b) {
-//
-//        TreeNode LCA = this.findLowestCommonAncestor(this.root, a, b);
-//        if (LCA == null) {
-//            return "Tree or both of nodes don't exist";
-//        }
-//        if (LCA.getValue() == a || LCA.getValue() == b) {
-//            return LCA + " - One of the nodes is LCA";
-//        }
-//        if (LCA.getValue() == this.root.getValue()) {
-//            return LCA + " - LCA is a root";
-//        }
-//        else {
-//            return LCA + " - is LCA";
-//        }
-//    }
 }
