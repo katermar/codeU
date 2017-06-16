@@ -19,14 +19,6 @@ public class WordFinder {
         this.dictionary = dictionary;
     }
 
-    public Dictionary getDictionary() {
-        return dictionary;
-    }
-
-    public void setDictionary(Dictionary dictionary) {
-        this.dictionary = dictionary;
-    }
-
     /*A recursive helper function that finds all words in a char grid
       using dictionary, acts like DFS
       --------------------------------------------------------
@@ -62,7 +54,6 @@ public class WordFinder {
 
         // delete character from string and mark visited
         // of current cell as false
-        sample = sample.substring(0, sample.length() - 1);
         visited[i][j] = false;
     }
 
@@ -76,13 +67,17 @@ public class WordFinder {
     public Set<String> findWords(char grid[][]) {
         //initialize array, which marks all cells non-visited by default
         boolean visited[][] = new boolean[grid.length][grid[0].length];
+        char checkEmpty[][] = new char[grid.length][grid[0].length];
+
+        if (Arrays.deepEquals(checkEmpty, grid)) {
+            return null;
+        }
         HashSet<String> result = new HashSet<>();
-        String sample = "";
 
         //looks through all the characters in a grid
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                findWordsHelper(result, grid, visited, i, j, sample);
+                findWordsHelper(result, grid, visited, i, j, "");
             }
         }
         return result;
