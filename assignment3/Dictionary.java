@@ -2,15 +2,16 @@ package com.katermar.assignment3;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by katermar on 6/8/2017.
  */
 public class Dictionary {
-    private final HashSet<String> dictionary;
-    private final HashSet<String> prefixes;
+    private final Set<String> dictionary;
+    private final Set<String> prefixes;
 
-    public Dictionary(HashSet<String> dictionary, HashSet<String> prefixes) {
+    public Dictionary(Set<String> dictionary, Set<String> prefixes) {
         this.dictionary = dictionary;
         this.prefixes = prefixes;
     }
@@ -30,7 +31,7 @@ public class Dictionary {
         }
     }
 
-    public Dictionary(HashSet<String> dictionary) {
+    public Dictionary(Set<String> dictionary) {
         this.dictionary = dictionary;
         this.prefixes = new HashSet<>();
         for (String word : dictionary) {
