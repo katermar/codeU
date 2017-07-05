@@ -16,27 +16,28 @@ public class WordFinderTest {
                 {'T', 'C', 'D'}
         };
         String dictArray[] = {"CAR", "CARD", "CART", "CAT"};
-//        String prefixArray[] = {"C", "CA", "CAR", "CARD", "CART", "CAT"};
         Dictionary dictionary = new Dictionary(dictArray);
         String expectedResultArray[] = {"CAR", "CARD", "CAT"};
 
-        testWordFinder(new HashSet<String>(Arrays.asList(expectedResultArray)), dictionary, grid);
-        testWordFinder(new HashSet<String>(), dictionary, grid);
+        testWordFinder(new HashSet<String>(Arrays.asList(expectedResultArray)), dictionary, grid, "test1");
+        testWordFinder(new HashSet<String>(), dictionary, grid, "test2");
         char emptyGrid[][] = {{}, {}};
-        testWordFinder(new HashSet<String>(Arrays.asList(expectedResultArray)), dictionary, emptyGrid);
+        char moreEmptyGrid[][] = {};
+//        testWordFinder(new HashSet<String>(Arrays.asList(expectedResultArray)), dictionary, emptyGrid, "test empty grid");
+        testWordFinder(new HashSet<String>(Arrays.asList(expectedResultArray)), dictionary, moreEmptyGrid, "test MORE empty grid");
     }
 
-    public static void testWordFinder(HashSet<String> expectedResult, Dictionary dictionary, char grid[][]) {
+    public static void testWordFinder(HashSet<String> expectedResult, Dictionary dictionary, char grid[][], String nameOfTest) {
         WordFinder wordFinder = new WordFinder(dictionary);
         if (wordFinder.findWords(grid) == null) {
-            System.out.println("No Words found <----- ERROR! Test FAILED");
+            System.out.println("No Words found <----- ERROR! Test FAILED === " + nameOfTest);
             return;
         }
         System.out.print(wordFinder.findWords(grid).toString());
         if (wordFinder.findWords(grid).equals(expectedResult)) {
-            System.out.println(" <----- Grats! Test PASSED");
+            System.out.println(" <----- Grats! Test PASSED === " + nameOfTest);
         } else {
-            System.out.println(" <----- ERROR! Test FAILED");
+            System.out.println(" <----- ERROR! Test FAILED === " + nameOfTest);
         }
     }
 }

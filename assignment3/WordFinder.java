@@ -66,11 +66,18 @@ public class WordFinder {
      */
     public Set<String> findWords(char grid[][]) {
         //initialize array, which marks all cells non-visited by default
-        boolean visited[][] = new boolean[grid.length][grid[0].length];
-        char checkEmpty[][] = new char[grid.length][grid[0].length];
-
-        if (Arrays.deepEquals(checkEmpty, grid)) {
+        if (grid.length == 0) {
             return null;
+        }
+
+        boolean visited[][] = new boolean[grid.length][grid[0].length];
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if ((int)grid[i][j] == 0) {
+                    return null;
+                }
+            }
         }
         HashSet<String> result = new HashSet<>();
 
