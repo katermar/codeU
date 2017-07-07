@@ -8,20 +8,21 @@ import java.util.Arrays;
 public class IslandCounterTest {
 
     public static void main(String args[]) {
-        char map[][] = {{'F', 'T', 'F', 'T'},
-                        {'T', 'T', 'F', 'F'},
-                        {'F', 'F', 'T', 'F'},
-                        {'F', 'F', 'T', 'F'}};
-        char emptyArray[][] = {{}, {}};
+        boolean map[][] = {{false, true, false, true},
+                        {true, true, false, false},
+                        {false, false, true, false},
+                        {false, false, true, false}};
+        boolean emptyArray[][] = {{}, {}};
+        boolean moreEmptyArray[][] = {};
         testIslandCounter(3, map);
-        testIslandCounter(2, map);
         testIslandCounter(0, emptyArray);
+        testIslandCounter(0, moreEmptyArray);
     }
 
-    public static void testIslandCounter(int expectedResult, char map[][]) {
-        char checkEmpty[][] = new char[map.length][map[0].length];
-        if (Arrays.deepEquals(map, checkEmpty)) {
-            System.out.println("ERROR! Array is EMPTY! Test FAILED!");
+    public static void testIslandCounter(int expectedResult, boolean map[][]) {
+
+        if (map.length == 0 || map[0].length == 0) {
+            System.out.println("ERROR! Array is EMPTY! ");
             return;
         }
         IslandCounter islandCounter = new IslandCounter(map);
