@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by USER on 7/8/2017.
+ * Created by katermar on 7/8/2017.
  */
-public class Vertex {
+class Vertex {
     private final Character value;
     private Set<Vertex> neighbours = new HashSet<>();
 
