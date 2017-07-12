@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by USER on 7/8/2017.
+ * Created by katermar on 7/8/2017.
  */
 public class AlphabetDiscoveringTest {
     public static void main(String[] args) {

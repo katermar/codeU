@@ -1,15 +1,22 @@
 package com.katermar.assignment5;
 
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.LinkedList;
+import java.util.Collections;
 
 /**
- * Created by USER on 7/8/2017.
+ * Created by katermar on 7/8/2017.
  */
 public class AlphabetDiscovering {
     /*
      * static Class to scan all letters from the given List of words
      */
-    public static class LetterScanner {
+    private static class LetterScanner {
         /*
          * Method to make a graph of letters from the given dictionary
          * ------------------------------------------------------------
@@ -86,7 +93,7 @@ public class AlphabetDiscovering {
         private static void visitVertex(Vertex v, Set<Vertex> unmarked, Set<Vertex> visiting,
                                   Set<Vertex> visited, List<Character> ordered) {
             if (visiting.contains(v)) {
-                throw new RuntimeException("Cyclic graph. No ordering possible.");
+                throw new IllegalArgumentException("Cyclic graph. No ordering possible.");
             }
 
             if (unmarked.remove(v)) {
@@ -100,7 +107,7 @@ public class AlphabetDiscovering {
             }
         }
 
-        public void onOrderedPair(char u, char v) {
+        void onOrderedPair(char u, char v) {
             vertexMap.computeIfAbsent(u, Vertex::new).addEdgeTo(vertexMap.computeIfAbsent(v, Vertex::new));
         }
     }
