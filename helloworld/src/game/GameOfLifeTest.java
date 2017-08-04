@@ -52,4 +52,25 @@ public class GameOfLifeTest {
         GameOfLife gameOfLife = new GameOfLife(grid);
         assertTrue(Arrays.deepEquals(grid, gameOfLife.makeStep()));
     }
+
+    @Test
+    public void testUnstableGrid(){
+        boolean[][] grid = {
+                {false, false, false, false, false},
+                {false, false, true, false, false},
+                {false, false, true, false, false},
+                {false, false, true, false, false},
+                {false, false, false, false, false},
+        };
+
+        boolean[][] grid2step = {
+                {false, false, false, false, false},
+                {false, false, false, false, false},
+                {false, true, true, true, false},
+                {false, false, false, false, false},
+                {false, false, false, false, false},
+        };
+        GameOfLife gameOfLife = new GameOfLife(grid);
+        assertTrue(Arrays.deepEquals(grid2step, gameOfLife.makeStep()));
+    }
 }

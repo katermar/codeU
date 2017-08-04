@@ -51,6 +51,7 @@ public class GameOfLife {
                 secondGrid[i][j] = firstGrid[i][j] && neighs == 2 || neighs == 3;
             }
         }
+        firstGrid = secondGrid.clone();
 
         return secondGrid;
     }

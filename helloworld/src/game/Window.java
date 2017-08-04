@@ -2,7 +2,9 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 import java.util.TimerTask;
+import java.util.concurrent.ForkJoinPool;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -13,20 +15,27 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 class DrawPanel extends JPanel {
 
     GameOfLife gameOfLife;
+    private boolean isEnd = false;
 
-    public DrawPanel(boolean[][] map) {
+    private void mainLoop() {
+        while (!isEnd) {
+            repaint();
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public DrawPanel(boolean[][] map) throws Exception {
         gameOfLife = new GameOfLife(map);
-        new java.util.Timer().schedule(
-                new TimerTask() {
-                    public void run() {
-                        repaint();
-                    }
-                },
-                1000);
+        ForkJoinPool.commonPool().execute(this::mainLoop);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        boolean end = true;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight()); //<-- clear the background
@@ -36,7 +45,7 @@ class DrawPanel extends JPanel {
             for (int j = 0; j < map[0].length; j++) {
 //                Rectangle grid = new Rectangle(100 + i * size, 100 + j * size, size, size);
                 if (map[i][j]) {
-                    g2d.setColor(Color.black);
+                    g2d.setColor(new Color((int)(Math.random() * 0x1000000)));
                     g2d.fillRect(100 + i * size, 100 + j * size, size, size);
                 } else {
                     g2d.setColor(Color.white);
@@ -49,14 +58,20 @@ class DrawPanel extends JPanel {
 }
 
 public class Window {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         JFrame frame = new JFrame("Animation");
         boolean[][] grid = {
-                {false, false, false, false, false},
-                {false, false, true, false, false},
-                {false, false, true, false, false},
-                {false, false, true, false, false},
-                {false, false, false, false, false},
+                {true, false, false, false, false, true},
+                {true, false, false, false, false, true},
+                {false, false, true, false, false, false},
+                {false, true, true, false, false, true},
+                {false, true, true, false, false, true},
+                {false, false, true, false, false, false},
+                {false, true, true, false, false, true},
+                {false, false, true, false, false, false},
+                {false, false, true, false, false, false},
+                {false, false, true, false, false, false},
+                {false, false, true, false, false, false},
         };
         frame.add(new DrawPanel(grid));
         frame.setTitle("Simple example");
